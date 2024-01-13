@@ -1,0 +1,13 @@
+<!-- webcam.component.html -->
+<div>
+    <webcam
+      [trigger]="trigger"
+      [width]="640"
+      [height]="480"
+      [videoOptions]="videoOptions"
+      (imageCapture)="handleImage($event)">
+    </webcam>
+  </div>
+  
+  <button (click)="triggerSnapshot()">Take Picture</button>
+  
