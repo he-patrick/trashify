@@ -1,0 +1,76 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>Display Webcam Stream</title>
+ 
+<style>
+#container {
+	margin: 0px auto;
+	width: 500px;
+	height: 375px;
+	border: 10px #333 solid;
+}
+#videoElement {
+	width: 500px;
+	height: 375px;
+	background-color: #666;
+}
+</style>
+</head>
+ 
+<body>
+<div id="container">
+	<video autoplay="true" id="videoElement">
+
+	</video>
+</div>
+<br>
+<button onclick="capture()">Capture</button>
+<script>
+    function capture() {
+        var canvas = document.getElementById("canvas");
+        var video = document.querySelector("video");
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        canvas
+            .getContext("2d")
+            .drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+
+        /** Code to merge image **/
+        /** For instance, if I want to merge a play image on center of existing image **/
+        /**
+        const playImage = new Image();
+        playImage.src = "path to image asset";
+        playImage.onload = () => {
+            const startX = video.videoWidth / 2 - playImage.width / 2;
+            const startY = video.videoHeight / 2 - playImage.height / 2;
+            canvas
+            .getContext("2d")
+            .drawImage(playImage, startX, startY, playImage.width, playImage.height);
+            canvas.toBlob() = (blob) => {
+            const img = new Image();
+            img.src = window.URL.createObjectUrl(blob);
+            }; 
+        }; **/
+        /** End **/
+        }
+
+        capture();
+</script>
+<br>
+<canvas id="canvas" style="overflow:auto"></canvas>
+<script>
+var video = document.querySelector("#videoElement");
+
+if (navigator.mediaDevices.getUserMedia) {
+  navigator.mediaDevices.getUserMedia({ video: true })
+    .then(function (stream) {
+      video.srcObject = stream;
+    })
+    .catch(function (err0r) {
+      console.log("Something went wrong!");
+    });
+}
+</script>
+</body>
+</html>
