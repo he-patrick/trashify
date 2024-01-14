@@ -28,6 +28,7 @@ const WebcamCapture: React.FC = () => {
             const imageData = canvas.toDataURL('image/png');
             setImage(imageData);
             uploadImage(imageData);
+    
         }
     };
 
@@ -43,7 +44,6 @@ const WebcamCapture: React.FC = () => {
                 body: formData // Send formData here
             });
             const data = await response.json();
-            console.log(data.message);
         } catch (error) {
             console.error("Error uploading the image: ", error);
         }
@@ -55,6 +55,7 @@ const WebcamCapture: React.FC = () => {
               <button onClick={captureImage}>Capture</button>
               <canvas ref={canvasRef} width="640" height="480" style={{ display: 'none' }} />
               {image && <img src={image} alt="Captured" />}
+              
           </div>
       );
   };

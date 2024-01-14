@@ -16,54 +16,54 @@ data = []
 labels = []
 
 # creating dataset for crumpled paper images
-crumpled_papers = os.listdir("ML-trash-images/paper/crumpled_paper")
+crumpled_papers = os.listdir("backend/ML-trash-images/paper/crumpled_paper")
 for paper in crumpled_papers:
-    imag = cv2.imread("ML-trash-images/paper/crumpled_paper/"+paper)
+    imag = cv2.imread("backend/ML-trash-images/paper/crumpled_paper/"+paper)
     img_from_ar = Image.fromarray(imag, 'RGB')
     resized_image = img_from_ar.resize((size, size))
     data.append(np.array(resized_image))
     labels.append(0)
 
 # creating dataset for paper cardboard images
-cardboards = os.listdir("ML-trash-images/paper/cardboard")
+cardboards = os.listdir("backend/ML-trash-images/paper/cardboard")
 for cardboard in cardboards:
-    imag = cv2.imread("ML-trash-images/paper/cardboard/"+cardboard)
+    imag = cv2.imread("backend/ML-trash-images/paper/cardboard/"+cardboard)
     img_from_ar = Image.fromarray(imag, 'RGB')
     resized_image = img_from_ar.resize((size, size))
     data.append(np.array(resized_image))
     labels.append(1)
 
 # creating dataset for aluminum cans images
-cans = os.listdir("ML-trash-images/aluminum/cans")
+cans = os.listdir("backend/ML-trash-images/aluminum/cans")
 for can in cans:
-    imag = cv2.imread("ML-trash-images/aluminum/cans/"+can)
+    imag = cv2.imread("backend/ML-trash-images/aluminum/cans/"+can)
     img_from_ar = Image.fromarray(imag, 'RGB')
     resized_image = img_from_ar.resize((size, size))
     data.append(np.array(resized_image))
     labels.append(2)
 
 # creating dataset for aluminum lids images
-lids = os.listdir("ML-trash-images/aluminum/lids")
+lids = os.listdir("backend/ML-trash-images/aluminum/lids")
 for lid in lids:
-    imag = cv2.imread("ML-trash-images/aluminum/lids/"+lid)
+    imag = cv2.imread("backend/ML-trash-images/aluminum/lids/"+lid)
     img_from_ar = Image.fromarray(imag, 'RGB')
     resized_image = img_from_ar.resize((size, size))
     data.append(np.array(resized_image))
     labels.append(3)
 
 # creating dataset for plastic bottles images
-plastic_bottles = os.listdir("ML-trash-images/plastic/plastic_bottles")
+plastic_bottles = os.listdir("backend/ML-trash-images/plastic/plastic_bottles")
 for plastic_bottle in plastic_bottles:
-    imag = cv2.imread("ML-trash-images/plastic/plastic_bottles/"+plastic_bottle)
+    imag = cv2.imread("backend/ML-trash-images/plastic/plastic_bottles/"+plastic_bottle)
     img_from_ar = Image.fromarray(imag, 'RGB')
     resized_image = img_from_ar.resize((size, size))
     data.append(np.array(resized_image))
     labels.append(4)
 
 # creating dataset for plastic bags images
-bags = os.listdir("ML-trash-images/plastic/bags")
+bags = os.listdir("backend/ML-trash-images/plastic/bags")
 for bag in bags:
-    imag = cv2.imread("ML-trash-images/plastic/bags/"+bag)
+    imag = cv2.imread("backend/ML-trash-images/plastic/bags/"+bag)
     img_from_ar = Image.fromarray(imag, 'RGB')
     resized_image = img_from_ar.resize((size, size))
     data.append(np.array(resized_image))
