@@ -2,6 +2,42 @@ from keras.models import model_from_json
 import cv2
 from PIL import Image
 import numpy as np
+from flask_cors import CORS
+from flask import Flask, request, jsonify
+import base64
+
+app = Flask(__name__)
+
+CORS(app, origins=["http://localhost:3000"])
+
+@app.route('/')
+def start():
+    return ""
+
+
+@app.route('/upload', methods=['POST'])
+def upload_image():
+    try:
+        # Extract the base64 image data from the request
+        image_data = request.data.decode('utf-8')
+
+        # The data URL contains a header and the base64 data separated by a comma.
+        # We only need the base64 data.
+        header, base64_data = image_data.split(',', 1)
+
+        # Decode the base64 string
+        image_bytes = base64.b64decode(base64_data)
+
+        # Save the image to a file or further process it as needed
+        with open('captured_image.png', 'wb') as image_file:
+            image_file.write(image_bytes)
+
+        return predict_trash(image_file)
+    except Exception as e:
+        return jsonify(error=str(e)), 500
+
+if __name__ == '__main__':
+    app.run(debug=True)
 
 # load the model from the json file
 json_file = open('model.json', 'r')
@@ -42,3 +78,4 @@ def predict_trash(file):
     
     trash = get_trash_type(label_index)
     print("The predicted trash is a "+trash+" with accuracy = "+str(acc))
+    return trash
