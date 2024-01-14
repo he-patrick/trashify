@@ -1,4 +1,5 @@
 <!-- webcam.component.html -->
+<!-- 
 <div>
     <webcam
       [trigger]="trigger"
@@ -10,4 +11,76 @@
   </div>
   
   <button (click)="triggerSnapshot()">Take Picture</button>
-  
+-->
+
+<html>
+<head>
+<meta charset="utf-8">
+<title>Display Webcam Stream</title>
+ 
+<style>
+#container {
+	margin: 0px auto;
+	width: 500px;
+	height: 375px;
+	border: 10px #333 solid;
+}
+#videoElement {
+	width: 500px;
+	height: 375px;
+	background-color: #666;
+}
+</style>
+</head>
+ 
+<body>
+<div id="container">
+	<video autoplay="true" id="videoElement">
+
+	</video>
+</div>
+<br>
+<button onclick="capture()">Capture and Download</button><hr>
+<img id="imgConverted">
+<script>
+    function capture() {
+        var canvas = document.getElementById("canvas");
+        var video = document.querySelector("video");
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        canvas
+            .getContext("2d")
+            .drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+        const dataURL = canvas.toDataURL("image/jpeg");
+        imgConverted.url = dataURL;
+
+      if (window.navigator.msSaveBlob) {
+          window.navigator.msSaveBlob(canvas.msToBlob(), "canvas-image.png");
+        }
+        else {
+          const a = document.createElement("a");
+          document.body.appendChild(a);
+          a.href = canvas.toDataURL("image/jpeg", 0.1);
+          a.download = "canvas-image.jpg";
+          a.click()
+          document.body.removeChild(a);
+        }
+  }
+</script>
+<br>
+<canvas id="canvas" style="overflow:auto"></canvas>
+<script>
+var video = document.querySelector("#videoElement");
+
+if (navigator.mediaDevices.getUserMedia) {
+  navigator.mediaDevices.getUserMedia({ video: true })
+    .then(function (stream) {
+      video.srcObject = stream;
+    })
+    .catch(function (err0r) {
+      console.log("Something went wrong!");
+    });
+}
+</script>
+</body>
+</html>
