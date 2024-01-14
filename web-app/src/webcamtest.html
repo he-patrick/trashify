@@ -25,7 +25,8 @@
 	</video>
 </div>
 <br>
-<button onclick="capture()">Capture</button>
+<button onclick="capture()">Capture and Download</button><hr>
+<img id="imgConverted">
 <script>
     function capture() {
         var canvas = document.getElementById("canvas");
@@ -35,27 +36,21 @@
         canvas
             .getContext("2d")
             .drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+        const dataURL = canvas.toDataURL("image/jpeg");
+        imgConverted.url = dataURL;
 
-        /** Code to merge image **/
-        /** For instance, if I want to merge a play image on center of existing image **/
-        /**
-        const playImage = new Image();
-        playImage.src = "path to image asset";
-        playImage.onload = () => {
-            const startX = video.videoWidth / 2 - playImage.width / 2;
-            const startY = video.videoHeight / 2 - playImage.height / 2;
-            canvas
-            .getContext("2d")
-            .drawImage(playImage, startX, startY, playImage.width, playImage.height);
-            canvas.toBlob() = (blob) => {
-            const img = new Image();
-            img.src = window.URL.createObjectUrl(blob);
-            }; 
-        }; **/
-        /** End **/
+      if (window.navigator.msSaveBlob) {
+          window.navigator.msSaveBlob(canvas.msToBlob(), "canvas-image.png");
         }
-
-        capture();
+        else {
+          const a = document.createElement("a");
+          document.body.appendChild(a);
+          a.href = canvas.toDataURL("image/jpeg", 0.1);
+          a.download = "canvas-image.jpg";
+          a.click()
+          document.body.removeChild(a);
+        }
+  }
 </script>
 <br>
 <canvas id="canvas" style="overflow:auto"></canvas>
